@@ -6,3 +6,4 @@ Install nodemon and create-react-app globally using below command:
 `$ npm i -D nodemon`
 
 `npm i -g create-react-app`
+
