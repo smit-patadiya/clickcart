@@ -1,6 +1,10 @@
+const rfr = require('rfr');
 const express = require( 'express' );
 const bodyParser = require( 'body-parser' );
 const path = require( 'path' );
+
+const mongoose = rfr('mongoose');
+
 
 const router = express.Router();
 
