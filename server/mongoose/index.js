@@ -1,6 +1,6 @@
 const rfr = require('rfr');
 const mongoose = require('mongoose');
-const db = rfr('config/keys').mongoURI;
+const db = rfr('server/config/keys').mongoURI;
 
 mongoose.Promise = global.Promise;
 

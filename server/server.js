@@ -3,8 +3,7 @@ const express = require( 'express' );
 const bodyParser = require( 'body-parser' );
 const path = require( 'path' );
 
-const mongoose = rfr('mongoose');
-
+const mongoose = rfr('server/mongoose');
 
 const router = express.Router();
 
