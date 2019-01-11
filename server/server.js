@@ -6,6 +6,8 @@ const passport = require('passport');
 
 const mongoose = rfr('server/mongoose');
 
+const user = rfr('server/routes/api/user');
+
 const router = express.Router();
 
 const app = express();
@@ -18,8 +20,12 @@ const app = express();
 app.use( bodyParser.urlencoded( { extended: false } ) );
 app.use( bodyParser.json() );
 
+app.use('/api/user', user);
+
 // Passport middleware
 app.use(passport.initialize());
+
+
 
 // Include Passport Config
 rfr('server/config/passport')(passport);

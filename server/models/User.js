@@ -18,13 +18,7 @@ const userSchema = mongoose.Schema({
         required: true,
         minlength: 5
     },
-    storeUrl: {
-        type: String,
-        trim: true,
-        unique: 1,
-        required: true,
-        maxlength: 100
-    }
+    
 });
 
 userSchema.pre('save', function (next) {
@@ -45,8 +39,9 @@ userSchema.pre('save', function (next) {
     }
 })
 
-userSchema.methods.comparePassword = function (candidatePassword, cb) {
-    bcrypt.compare(candidatePassword, this.password, function (err, isMatch) {
+userSchema.methods.comparePassword = (candidatePassword, dbPassword ,cb) => {
+    
+    bcrypt.compare(candidatePassword, dbPassword, (err, isMatch) => {
         if (err) return cb(err);
         cb(null, isMatch)
     })
@@ -63,7 +58,4 @@ userSchema.methods.generateToken = function (cb) {
     })
 }
 
-
-const User = mongoose.model('User', userSchema);
-
-module.exports = { User }
+module.exports = User = mongoose.model('User', userSchema);
