@@ -65,16 +65,24 @@ router.post( '/login', ( req, res ) => {
     const password = req.body.password;
 
     User.findOne({ email: email }, ( err, user ) => {
+         var errors = {};
 
-        if( !user ) return res.status(400).json( { loginSuccess: false, message: 'Email Not Found' } );
+        if( !user ){
+           
+            errors.email = 'Email Not Found';
+            return res.status(400).json(  errors  );
+        } 
 
         user.comparePassword(password, user.password , (err, isMatch) => {
 
-            if (!isMatch) return res.json({ loginSuccess: false, message: 'Wrong password' });
+            if (isMatch){
+                errors.password = 'Wrong password';
+                return res.status(400).json( errors );
+            }
 
             payload = {
                 id: user._id,
-                email: user.emails
+                email: user.email
             };
 
             jwt.sign(payload, secretKey, { expiresIn: 86400 }, (err, token) => {
