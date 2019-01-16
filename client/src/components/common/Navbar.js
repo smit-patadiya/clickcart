@@ -7,8 +7,16 @@ import { logoutUser } from "../../actions/authActions";
 
 class Navbar extends Component {
 
+    constructor( props ){
+        super( props );
 
+        this.logout = this.logout.bind(this);
+    }
 
+    logout() {
+        this.props.logoutUser();
+		//this.props.clearCurrentProfile();
+    }
 
     render() {
 
@@ -38,6 +46,9 @@ class Navbar extends Component {
                                 <div className="dropdown-divider" />
                                 <Link className="dropdown-item" to="#">Something else here</Link>
                             </div>
+                        </li>
+                        <li className="nav-item">
+                            <Link className="nav-link" to="#" onClick={ this.logout }>Logout</Link>
                         </li>
                     </ul>
                     
