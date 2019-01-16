@@ -3,7 +3,7 @@ import setAuthToken from '../utils/setAuthToken';
 
 // jwt-decode module is used to decode the user data from auth token
 import jwt_decode from 'jwt-decode';
-import { GET_ERRORS, SET_CURRENT_USER } from './types';
+import { GET_ERRORS, CLEAR_ERRORS, SET_CURRENT_USER, CLEAR_CURRENT_USER } from './types';
 
 /**
  * Register User: registerUser()
@@ -14,8 +14,12 @@ import { GET_ERRORS, SET_CURRENT_USER } from './types';
  */
 export const registerUser = (userData, history) => dispatch => {
 
-    axios.post('/api/users/register', userData)
-        .then((res) => history.push(`/verifyUser?user_id=${res.data._id}`))
+    axios.post('/api/user/register', userData)
+        .then((res) => {
+
+            dispatch({ type: CLEAR_ERRORS });
+            window.location.href = '/';
+        })
         .catch((err) => dispatch({
             type: GET_ERRORS,
             payload: err.response.data
@@ -45,6 +49,8 @@ export const loginUser = (userData) => dispatch => {
             
             
             dispatch(setCurrentUser(decoded));
+
+
         })
         .catch((err) => dispatch({
             type: GET_ERRORS,
@@ -70,6 +76,13 @@ export const logoutUser = () => dispatch => {
 
     // Set the current user to an empty object, which will set the isAuthenticated state of redux store to false.
     dispatch(setCurrentUser({}));
+};
+
+// Clear Current Profile
+export const clearCurrentProfile = () => {
+	return {
+		type: CLEAR_CURRENT_USER
+	}
 };
 
 

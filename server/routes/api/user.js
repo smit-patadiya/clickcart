@@ -34,8 +34,7 @@ router.post('/register', ( req, res ) => {
         .then( existingUser => {
             if( existingUser ){
                 errors.email = 'Email Already Exsists';
-
-                return res.status(400).json({ success: false, errors });
+                return res.status(400).json( errors );
             }
 
             let newUser = new User({
@@ -44,7 +43,8 @@ router.post('/register', ( req, res ) => {
             });
 
             newUser.save( (err, user) => {
-                if (err) return res.json({ success: false, err });
+
+                if (err) return res.status(400).json({ success: false, err });
                 return res.status(200).json({
                     success: true
                 })

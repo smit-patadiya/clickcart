@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import classnames from 'classnames';
-import { loginUser } from "../actions/authActions";
+import { registerUser } from "../actions/authActions";
 
-class Login extends Component {
+class Register extends Component {
 
     constructor( props ){
         super( props );
@@ -40,7 +40,7 @@ class Login extends Component {
             password: this.state.password,
         }
 
-        this.props.loginUser(formDate);
+        this.props.registerUser(formDate);
 
     }
 
@@ -57,7 +57,7 @@ class Login extends Component {
             <div>  
                 <form className="mt-1 mb-2" onSubmit={this.onSubmit}>
                     <div className="form-group">
-                        <h4 className="text-center">Login</h4>
+                        <h4 className="text-center">Register</h4>
                     </div>
                     <div className="form-group">
                         <label htmlFor="email">Email address</label>
@@ -79,7 +79,6 @@ class Login extends Component {
                     </div>
                     
                     <button type="submit" className="btn btn-primary">Submit</button>
-                    <Link to="/register" className="">Register</Link>
                 </form>
 
 			</div>
@@ -87,9 +86,9 @@ class Login extends Component {
     }
 }
 
-Login.propTypes = {
+Register.propTypes = {
     auth: PropTypes.object.isRequired,
-    loginUser: PropTypes.func.isRequired,
+    registerUser: PropTypes.func.isRequired,
     errors: PropTypes.object.isRequired,
 };
 
@@ -99,4 +98,4 @@ const mapStateToProps = (state) => ({
 });
 
 
-export default connect(mapStateToProps, { loginUser })(Login);
+export default connect(mapStateToProps, { registerUser })(Register);

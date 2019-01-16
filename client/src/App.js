@@ -4,11 +4,12 @@ import { Provider } from 'react-redux';
 import jwt_decode from 'jwt-decode';
 
 import setAuthToken from './utils/setAuthToken';
-import { setCurrentUser } from './actions/authActions';
+import { setCurrentUser, logoutUser, clearCurrentProfile } from './actions/authActions';
 
 
 import Home from "./components/Home";
 import Navbar from "./components/common/Navbar";
+import Register from "./components/Register";
 
 import store from './store';
 
@@ -36,16 +37,14 @@ if ( localStorage.jwtToken ) {
 	 * decoded.exp
 	 * @type {number}
 	 */
-	const currentTime = Date.now() / 1000;
-	if ( decoded.exp < currentTime ) {
-		// store.dispatch( logoutUser() );
-		//store.dispatch( clearCurrentProfile() );
+  const currentTime = Date.now() / 1000;
 
-		// Todo: Clear Current profile and redirect to login
-		// store.dispatch( clearCurrentProfile() );
+	if ( decoded.exp < currentTime ) {
+		store.dispatch( logoutUser() );
+		store.dispatch( clearCurrentProfile() );
 
 		// Redirects the user to login page when the token is expired and the user logs out.
-		window.location.href = '/login';
+		window.location.href = '/';
 	}
 }
 
@@ -58,6 +57,7 @@ class App extends Component {
           <div className="App">
             <Navbar />
             <Route exact path="/" component={Home} />
+            <Route exact path="/register" component={Register} />
           </div>
         </Router>
       </Provider>
