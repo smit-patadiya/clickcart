@@ -1,17 +1,20 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import jwt_decode from 'jwt-decode';
 
 import setAuthToken from './utils/setAuthToken';
 import { setCurrentUser, logoutUser, clearCurrentProfile } from './actions/authActions';
 
+import PrivateRoute from './components/common/PrivateRoute';
 
 import Home from "./components/Home";
 import Navbar from "./components/common/Navbar";
 import Register from "./components/Register";
+import Dashboard from "./components/Dashboard";
 
 import store from './store';
+
 
 
 if ( localStorage.jwtToken ) {
@@ -58,6 +61,10 @@ class App extends Component {
             <Navbar />
             <Route exact path="/" component={Home} />
             <Route exact path="/register" component={Register} />
+						<Switch><PrivateRoute exact path="/dashboard" component={Dashboard} /></Switch>
+            <Switch><PrivateRoute exact path="/dashboard/:param" component={Dashboard} /></Switch>
+					
+						
           </div>
         </Router>
       </Provider>

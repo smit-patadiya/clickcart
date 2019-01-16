@@ -2,8 +2,11 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import classnames from 'classnames';
+
 import { logoutUser } from "../actions/authActions";
 import Login from './Login';
+import Dashboard from './Dashboard';
 
 class Home extends Component {
 
@@ -11,9 +14,12 @@ class Home extends Component {
 		const { isAuthenticated, user } = this.props.auth;
 		
 		return(
-			<div className="container">
+			<div className={ classnames( '', { 'container': !isAuthenticated, 'container-fluid': isAuthenticated } ) }>
 				{ !isAuthenticated && (
 					<Login />
+				) }
+				{ isAuthenticated && (
+					<Link to='/dashboard' className="btn">Dashboard</Link>
 				) }
 			</div>
 		);
