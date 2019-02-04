@@ -20,7 +20,9 @@ import store from './store';
 import FrontEnd from './components/frontend/index';
 
 
+if( localStorage.ecartid ){
 
+}
 
 
 if ( localStorage.jwtToken ) {
@@ -60,21 +62,21 @@ if ( localStorage.jwtToken ) {
 
 class App extends Component {
   render() {
-
+		
     return (
       <Provider store={store}>
         <Router>
-					
-          <div className="App">
-					
-						<Route exact path="/render/:param" component={FrontEnd} />
-            <Route exact path="/" component={Home} />
-            <Route exact path="/register" component={Register} />
+					<div className="App">
+
+						<Route exact path="/render/:storeid" component={FrontEnd} />
+						<Route exact path="/" component={Home} />
+						<Route exact path="/register" component={Register} />
 						<Switch><PrivateRoute exact path="/dashboard" component={Dashboard} /></Switch>
-            <Switch><PrivateRoute exact path="/dashboard/:param" component={Dashboard} /></Switch>
+						<Switch><PrivateRoute exact path="/dashboard/:param" component={Dashboard} /></Switch>
 						<Switch><PrivateRoute exact path="/edit-cat/:param" component={EditCat} /></Switch>
 						<Switch><PrivateRoute exact path="/edit-product/:param" component={EditProduct} /></Switch>
-          </div>
+
+					</div>
         </Router>
       </Provider>
     );

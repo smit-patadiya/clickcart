@@ -68,6 +68,7 @@ class Store extends Component {
         
         let storeUrl = (this.state.storeId !== '') ? `${window.location.origin}/render/${storeId}` : '...Loading...';
 
+        let textArea = ` <iframe id="form-iframe" src="${storeUrl}" style="margin:0; width:100%; height:150px; border:none; overflow:hidden;" scrolling="no" onload="AdjustIframeHeightOnLoad()"></iframe><script type="text/javascript">function AdjustIframeHeightOnLoad() { document.getElementById("form-iframe").style.height = document.getElementById("form-iframe").contentWindow.document.body.scrollHeight + "px"; }function AdjustIframeHeight(i) { document.getElementById("form-iframe").style.height = parseInt(i) + "px"; }</script>`;
         return (
             <div className='p-2'>
                 <h3 className=''>Create or Manage Store</h3>
@@ -78,7 +79,8 @@ class Store extends Component {
                     </div>
                     <div className='form-group'>
                         <label htmlFor='link'>Link</label>
-                        <input type='text' className='form-control' value={ storeUrl } readOnly />
+                        <textarea rows={5} className='form-control' readOnly={true} value={ textArea }></textarea>
+                        
                     </div>
                     <div className='form-group'>
                         <button type="submit" className='btn btn-primary' disabled={this.state.submitting} >Submit</button>
