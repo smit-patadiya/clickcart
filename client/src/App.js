@@ -12,8 +12,13 @@ import Home from "./components/Home";
 import Navbar from "./components/common/Navbar";
 import Register from "./components/Register";
 import Dashboard from "./components/Dashboard";
+import EditCat from './components/categories/edit';
+import EditProduct from './components/products/edit';
+
 
 import store from './store';
+
+
 
 
 
@@ -63,6 +68,8 @@ class App extends Component {
             <Route exact path="/register" component={Register} />
 						<Switch><PrivateRoute exact path="/dashboard" component={Dashboard} /></Switch>
             <Switch><PrivateRoute exact path="/dashboard/:param" component={Dashboard} /></Switch>
+						<Switch><PrivateRoute exact path="/edit-cat/:param" component={EditCat} /></Switch>
+						<Switch><PrivateRoute exact path="/edit-product/:param" component={EditProduct} /></Switch>
 					
 						
           </div>

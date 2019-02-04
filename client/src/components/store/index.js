@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import classnames from 'classnames';
 import axios from 'axios';
+import { fetchStore } from '../../actions/storeActions';
+import { createStore } from '../../actions/storeActions';
 
 import AdminSidebar from '../common/AdminSidebar';
 
@@ -14,34 +16,21 @@ class Store extends Component {
         super(props);
 
         this.state = {
+
             userId: props.auth.user._id,
-            storeId: '',
-            name: '',
             submitting: false,
             errors: props.errors,
         };
     }
 
     componentWillMount(){
+
         let userId = this.state.userId;
-        axios.get(`/api/store/byuser/${userId}`)
-            .then( result => {
-
-                if( result.data !== null ){
-                    this.setState({
-                        name: result.data.name,
-                        storeId: result.data._id,
-                    });
-                }
-                
-            } )
-            .catch( err => {
-                console.log(err);
-            } );
-
+        
     }
 
     componentWillReceiveProps(nextProps) {
+
         if (nextProps.errors) {
             this.setState({ errors: nextProps.errors });
         }
@@ -65,21 +54,7 @@ class Store extends Component {
         }
 
 
-        axios.post('/api/store/create', formDate)
-            .then( result => {
-
-                if(result.data){
-                    this.setState({
-                        name: result.data.name,
-                        storeId: result.data.storeId,
-                        submitting: false,
-                    });
-                }
-
-            } )
-            .catch( err => {
-                console.log(err);
-            } )
+        this.props.createStore(formDate);
 
     }
 
@@ -87,7 +62,11 @@ class Store extends Component {
         
         const { errors } = this.state;
 
-        let storeUrl = ( this.state.storeId !== '' ) ? `${window.location.origin}/render/${this.state.storeId}` : '...Loading...';
+        let storeId = ( this.props.store._id ) ? this.props.store._id : '';
+        let storename = (this.props.store.name) ? this.props.store.name : this.state.name;;
+    
+        
+        let storeUrl = (this.state.storeId !== '') ? `${window.location.origin}/render/${storeId}` : '...Loading...';
 
         return (
             <div className='p-2'>
@@ -95,7 +74,7 @@ class Store extends Component {
                 <form className='' onSubmit={this.onSubmit} >
                     <div className='form-group'>
                         <label htmlFor='name'>Store Name</label>
-                        <input type='text' className='form-control' name='name' value={this.state.name} onChange={this.onChange} />
+                        <input type='text' className='form-control' name='name' value={storename} onChange={this.onChange} />
                     </div>
                     <div className='form-group'>
                         <label htmlFor='link'>Link</label>
@@ -111,13 +90,16 @@ class Store extends Component {
 }
 Store.propTypes = {
     auth: PropTypes.object.isRequired,
+    createStore: PropTypes.func.isRequired,
+    fetchStore: PropTypes.func.isRequired,
     errors: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
     auth: state.auth,
+    store: state.store,
     errors: state.errors
 });
 
 
-export default connect(mapStateToProps)(Store); 
+export default connect(mapStateToProps, { createStore, fetchStore })(Store); 

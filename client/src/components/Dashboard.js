@@ -4,11 +4,13 @@ import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import classnames from 'classnames';
 import { loginUser } from "../actions/authActions";
+import { fetchStore } from '../actions/storeActions';
 
 import AdminSidebar from './common/AdminSidebar';
 import Store from './store/index';
 import Products from './products/index';
 import Categories from './categories/index';
+import EditCat from './categories/edit';
 
 
 class Dashboard extends Component {
@@ -22,6 +24,14 @@ class Dashboard extends Component {
             submitting: false,
             errors: props.errors,
         };
+
+    }
+
+    componentWillMount() {
+
+        let userId = this.props.auth.user._id;
+        this.props.fetchStore(userId);
+
     }
 
     componentWillReceiveProps( nextProps ){
@@ -51,6 +61,7 @@ class Dashboard extends Component {
     }
 
     renderSwitch = ( param ) => {
+
         switch( param ){
             case 'store' : return <Store />;
             case 'products': return <Products />;
@@ -67,10 +78,8 @@ class Dashboard extends Component {
         const { errors } = this.state;
 
         const urlParams = (this.props.match.params.param) ? this.props.match.params.param : '';
-        
-        const returnComponent = '';
 
-        
+        const returnComponent = '';
 
 
         return (
@@ -90,14 +99,16 @@ class Dashboard extends Component {
 }
  Dashboard.propTypes = {
     auth: PropTypes.object.isRequired,
+    fetchStore: PropTypes.func.isRequired,
     loginUser: PropTypes.func.isRequired,
     errors: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
     auth: state.auth,
+    store: state.store,
     errors: state.errors
 });
 
 
-export default connect(mapStateToProps, { loginUser })(Dashboard);
+export default connect(mapStateToProps, { loginUser, fetchStore })(Dashboard);

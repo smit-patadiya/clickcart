@@ -9,52 +9,56 @@ import { fetchStore } from '../../actions/storeActions';
 import AdminSidebar from '../common/AdminSidebar';
 
 
-class Products extends Component {
+class EditProduct extends Component {
 
     constructor(props) {
         super(props);
 
+        let proId = this.props.match.params.param;
+
         this.state = {
-            userId: props.auth.user._id,
+            _id: proId,
             allCats: [],
-            products: [],
             name: '',
             category: '',
             price: '',
             stock: '',
             detail: '',
             submitting: false,
+            storeId: '',
         };
     }
 
     componentWillMount() {
-        
+            
         this.fetchCats();
-        this.fetchProducts();
-       
-    }
 
-    fetchCats = () => {
-
-        let storeId = this.props.store._id;
-        axios.get(`/api/category/bystore/${storeId}`)
+        axios.get(`/api/product/fetch-by-id/${this.state._id}`)
             .then(res => {
+
                 this.setState({
-                    allCats: res.data,
+                    name: res.data.name,
+                    category: res.data.category,
+                    price: res.data.price,
+                    stock: res.data.stock,
+                    image: res.data.image,
+                    detail: res.data.detail,
+                    storeId: res.data.storeId
                 })
             })
             .catch(err => {
                 console.log(err);
-            })
+            });
     }
 
-    fetchProducts = () => {
-
+    fetchCats = () => {
+        
         let storeId = this.props.store._id;
-        axios.get(`/api/product/bystore/${storeId}`)
+        
+        axios.get(`/api/category/bystore/${storeId}`)
             .then(res => {
                 this.setState({
-                    products: res.data,
+                    allCats: res.data,
                 })
             })
             .catch(err => {
@@ -79,7 +83,7 @@ class Products extends Component {
             submitting: true,
         });
 
-        let storeId = this.props.store._id;
+        let storeId = this.state.storeId;
 
         let formData = {
             storeId: storeId,
@@ -91,30 +95,27 @@ class Products extends Component {
             detail: this.state.detail,
         }
 
-        axios.post(`/api/product/create`, formData)
-            .then(res => {
+        axios.post(`/api/product/edit`, formData)
+            .then( res => {
 
-                this.fetchProducts();
-                
                 this.setState({
-                    name: '',
-                    category: '',
-                    price: '',
-                    stock: '',
-                    image: '',
-                    detail: '',
+                    name: res.data.name,
+                    category: res.data.category,
+                    price: res.data.price,
+                    stock: res.data.stock,
+                    image: res.data.image,
+                    detail: res.data.detail,
                     submitting: false
                 });
 
-
-            })
-            .catch(err => {
+            } )
+            .catch( err => {
                 console.log(err);
                 this.setState({
                     submitting: false
                 });
 
-            });
+            } );
 
     }
 
@@ -122,25 +123,29 @@ class Products extends Component {
 
         const { errors } = this.state;
 
+        //console.log( this.state );
+
+
         return (
-            <div className='p-2'>
+            <div className='container'>
+                
                 <form className="mt-1 mb-2" onSubmit={this.onSubmit}>
                     <div className="form-group">
-                        <h4 className="text-center">Add Product</h4>
+                        <h4 className="text-center">Edit Product</h4>
                     </div>
                     <div className="form-group">
                         <label htmlFor="name">Product Name</label>
                         <input type="text" name="name" value={this.state.name} onChange={this.onChange}
                             className='form-control'
-                            id="name"/>
+                            id="name" />
                     </div>
 
                     <div className="form-group">
                         <label htmlFor="name">Product Category</label>
                         <select name='category' value={this.state.category} className='form-control' onChange={this.onChange}>
-                            { ( this.state.allCats.length > 0 ) && this.state.allCats.map( item => (
+                            {(this.state.allCats.length > 0) && this.state.allCats.map(item => (
                                 <option value={item._id} key={item._id}>{item.name}</option>
-                            ) ) }
+                            ))}
                         </select>
                     </div>
 
@@ -163,54 +168,15 @@ class Products extends Component {
                         <label htmlFor="detail">Product detail</label>
                         <textarea className="form-control" id="detail" rows={5} value={this.state.detail} name='detail' onChange={this.onChange} />
                     </div>
-                    
+
                     <button type="submit" className="btn btn-primary" disabled={this.state.submitting} >Submit</button>
                 </form>
-
-                <hr />
-
-                <h3 className=''>Manage Products</h3>
                 
-                { (this.state.products.length > 0) && (
-                    <table className="table">
-                        <thead>
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">Name</th>
-                                <th scope="col">Category</th>
-                                <th scope="col">Price</th>
-                                <th scope="col">Stock</th>
-                                <th scope="col">Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            { this.state.products.map( (item, index) => {
-
-                                let catObj = this.state.allCats.find(o => o._id === item.category);
-                                let cat = (catObj.name) ? catObj.name : item.category;
-                                return (
-                                <tr key={item._id}>
-                                    <th scope="row">{ index + 1 }</th>
-                                    <td>{item.name}</td>
-                                    <td>{ cat }</td>
-                                    <td>{item.price}</td>
-                                    <td>{item.stock}</td>
-                                    <td>
-                                        <Link className="nav-link" to={`/edit-product/${item._id}`}>
-                                            Edit
-                                        </Link>
-                                    </td>
-                                </tr>
-                             )} ) }           
-                        </tbody>
-                    </table>
-
-                ) }
             </div>
         );
     }
 }
-Products.propTypes = {
+EditProduct.propTypes = {
     auth: PropTypes.object.isRequired,
     errors: PropTypes.object.isRequired,
 };
@@ -222,4 +188,4 @@ const mapStateToProps = (state) => ({
 });
 
 
-export default connect(mapStateToProps, { fetchStore })(Products); 
+export default connect(mapStateToProps, { fetchStore })(EditProduct); 

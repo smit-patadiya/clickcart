@@ -26,10 +26,22 @@ router.get('/', (req, res) => {
     res.status(200).json({ success: true });
 });
 
-router.get('/:storeId', (req, res) => {
+router.get('/bystore/:storeId', (req, res) => {
 
     Category.find({ storeId: req.params.storeId })
         .then( categories => {
+            return res.status(200).json(categories);
+        })
+        .catch(err => {
+            return res.status(400).json(err);
+        });
+
+});
+
+router.get('/fetch-by-catid/:catId', (req, res) => {
+
+    Category.findOne({ _id: req.params.catId })
+        .then(categories => {
             return res.status(200).json(categories);
         })
         .catch(err => {
@@ -61,16 +73,14 @@ router.post('/edit', (req, res) => {
     let body = req.body,
         errors = {};
 
-    var filter = { storeId: body.storeId, _id: body._id };
+    var filter = { _id: body._id };
     var fieldQuery = {
-        $set: { name: body.name, slug: body.slug }
+        $set: { name: body.name, slug: body.slug },
     };
 
-    Category.findOneAndUpdate( filter, fieldQuery )
+    Category.findOneAndUpdate( filter, fieldQuery, { new: true } )
         .then(category => { return res.status(200).json(category) })
         .catch(err => { return res.status(400).json(err) });
-
-
 });
 
 
