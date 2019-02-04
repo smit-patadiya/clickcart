@@ -7,6 +7,9 @@ import { loginUser } from "../actions/authActions";
 
 import AdminSidebar from './common/AdminSidebar';
 import Store from './store/index';
+import Products from './products/index';
+import Categories from './categories/index';
+
 
 class Dashboard extends Component {
 
@@ -50,6 +53,10 @@ class Dashboard extends Component {
     renderSwitch = ( param ) => {
         switch( param ){
             case 'store' : return <Store />;
+            case 'products': return <Products />;
+            case 'categories': return <Categories />;
+
+                
             default: return (<div>Not Found</div>)
         }
     }

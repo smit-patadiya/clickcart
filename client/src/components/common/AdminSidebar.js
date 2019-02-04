@@ -35,6 +35,11 @@ class AdminSidebar extends Component {
                         </Link>
                     </li>
                     <li className="nav-item">
+                        <Link className="nav-link" to={`${urlRoot}/categories`}>
+                            Categories
+                        </Link>
+                    </li>
+                    <li className="nav-item">
                         <Link className="nav-link" to={`${urlRoot}/orders`}>
                             Orders
                         </Link>

@@ -7,16 +7,20 @@ const moment = require("moment");
 const SALT_I = 10;
 require('dotenv').config();
 
-const storeSchema = mongoose.Schema({
+const categorySchema = mongoose.Schema({
+    storeId: {
+        type: Schema.Types.ObjectId,
+        ref: 'Store',
+    },
     name: {
         type: String,
         trim: true,
     },
-    userId: {
-        type: Schema.Types.ObjectId,
-        ref: 'User',
-    },
+    slug: {
+        type: String,
+        trim: true,
+    }
 
 });
 
-module.exports = Store = mongoose.model('Store', storeSchema);
+module.exports = mongoose.model('Category', categorySchema);

@@ -8,6 +8,7 @@ const passport = require('passport');
 
 // Load user model.
 const User = rfr('server/models/User');
+const Store = rfr('server/models/Store');
 
 
 /**
@@ -80,14 +81,25 @@ router.post( '/login', ( req, res ) => {
                 return res.status(400).json( errors );
             }
 
-            payload = {
-                id: user._id,
-                email: user.email
-            };
+            Store.findOne({ userId: user._id })
+                .then( store => {
 
-            jwt.sign(payload, secretKey, { expiresIn: 86400 }, (err, token) => {
-                return res.json({ loginSuccess: true, token: 'Bearer ' + token });
-            });
+                    payload = {
+                        _id: user._id,
+                        email: user.email
+                    };
+
+                    if( store ){
+                        payload.storeId = store._id;
+                    }else{
+                        payload.storeId = '';
+                    }
+
+                    jwt.sign(payload, secretKey, { expiresIn: 86400 }, (err, token) => {
+                        return res.json({ loginSuccess: true, token: 'Bearer ' + token });
+                    });
+
+                } );
 
         })
 

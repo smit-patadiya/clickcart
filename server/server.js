@@ -7,6 +7,9 @@ const passport = require('passport');
 const mongoose = rfr('server/mongoose');
 
 const user = rfr('server/routes/api/user');
+const store = rfr('server/routes/api/store');
+const product = rfr('server/routes/api/product');
+const category = rfr('server/routes/api/category');
 
 const router = express.Router();
 
@@ -21,6 +24,9 @@ app.use( bodyParser.urlencoded( { extended: false } ) );
 app.use( bodyParser.json() );
 
 app.use('/api/user', user);
+app.use('/api/store', store);
+app.use('/api/product', product);
+app.use('/api/category', category);
 
 // Passport middleware
 app.use(passport.initialize());
