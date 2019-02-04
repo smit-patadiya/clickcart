@@ -11,6 +11,7 @@ import Store from './store/index';
 import Products from './products/index';
 import Categories from './categories/index';
 import EditCat from './categories/edit';
+import Navbar from './common/Navbar';
 
 
 class Dashboard extends Component {
@@ -84,6 +85,7 @@ class Dashboard extends Component {
 
         return (
           <div className='container-fluid'>
+                <Navbar />
              <div className="row">
               <div className='col-md-4 col-lg-3 col-xl-2 pl-0 pr-0'>
                 <AdminSidebar />

@@ -7,6 +7,7 @@ import classnames from 'classnames';
 import { logoutUser } from "../actions/authActions";
 import Login from './Login';
 import Dashboard from './Dashboard';
+import Navbar from './common/Navbar';
 
 class Home extends Component {
 
@@ -15,6 +16,7 @@ class Home extends Component {
 		
 		return(
 			<div className={ classnames( '', { 'container': !isAuthenticated, 'container-fluid': isAuthenticated } ) }>
+				<Navbar />
 				{ !isAuthenticated && (
 					<Login />
 				) }

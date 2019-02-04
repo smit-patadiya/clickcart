@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import classnames from 'classnames';
 import { registerUser } from "../actions/authActions";
+import Navbar from './common/Navbar';
 
 class Register extends Component {
 
@@ -55,6 +56,7 @@ class Register extends Component {
 
         return (
             <div>  
+                <Navbar />
                 <form className="mt-1 mb-2" onSubmit={this.onSubmit}>
                     <div className="form-group">
                         <h4 className="text-center">Register</h4>

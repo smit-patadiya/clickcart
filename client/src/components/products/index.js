@@ -186,7 +186,12 @@ class Products extends Component {
                         <tbody>
                             { this.state.products.map( (item, index) => {
 
-                                let catObj = this.state.allCats.find(o => o._id === item.category);
+                                let catObj = {};
+
+                                if ( this.state.allCats.length ){
+                                    catObj = this.state.allCats.find(o => o._id === item.category);
+                                }
+                               
                                 let cat = (catObj.name) ? catObj.name : item.category;
                                 return (
                                 <tr key={item._id}>
