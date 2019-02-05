@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch, HashRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import jwt_decode from 'jwt-decode';
 
@@ -69,7 +69,8 @@ class App extends Component {
 
     return (
       <Provider store={store}>
-        <Router>
+			<HashRouter>
+        
 					<div className="App">
 						<Route exact path="/" component={Home} />
 					
@@ -95,7 +96,8 @@ class App extends Component {
 					
 					
 					</div>
-        </Router>
+        
+		</HashRouter>
       </Provider>
     );
   }
