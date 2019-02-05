@@ -39,6 +39,11 @@ class Navbar extends Component {
                         <li className="nav-item">
                             <Link className="nav-link" to={this.state.homeUrl + '/login'}>Login</Link>
                         </li>
+                        {this.props.auth.isAuthenticated && (
+                            <li className="nav-item">
+                                <Link className="nav-link" to={this.state.homeUrl + '/cart'}>Cart</Link>
+                            </li>
+                        ) }
                         
                     </ul>
                     

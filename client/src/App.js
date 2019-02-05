@@ -20,6 +20,7 @@ import store from './store';
 import FrontEnd from './components/frontend/index';
 
 import SingleProduct from './components/frontend/SingleProduct';
+import Cart from './components/frontend/Cart';
 import RegisterCustomer from './components/frontend/RegisterCustomer';
 import LoginCustomer from './components/frontend/LoginCustomer';
 
@@ -76,6 +77,7 @@ class App extends Component {
 						<Route exact path="/render/:storeid/register" component={RegisterCustomer} />
 						<Route exact path="/render/:storeid/login" component={LoginCustomer} />
 						<Route exact path="/render/:storeid/product/:productId" component={SingleProduct} />
+						<Route exact path="/render/:storeid/cart/" component={Cart} />
 
 						<Route exact path="/" component={Home} />
 						<Route exact path="/register" component={Register} />

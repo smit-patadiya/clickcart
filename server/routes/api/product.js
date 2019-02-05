@@ -146,7 +146,27 @@ router.post('/add-to-cart', ( req, res ) => {
             })
         } );
 
-} )
+} );
+
+router.get('/fetch-cart/:storeId/:userId', ( req, res ) => {
+
+    let storeId = req.params.storeId;
+    let userId = req.params.userId;
+
+    Cart.find({ storeId: storeId, userId: userId } )
+        .populate( 'productId' )
+        .then( data => {
+            return res.status(200).json( data );
+        } )
+        .catch(err => {
+            return res.status(400).json({
+                error: err,
+            })
+        });
+
+
+} );
+
 
 
 
