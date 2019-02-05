@@ -81,7 +81,8 @@ class Dashboard extends Component {
         const { errors } = this.state;
 
         const urlParams = (this.props.match.params.param) ? this.props.match.params.param : '';
-
+        console.log(this);
+        
         const returnComponent = '';
 
 

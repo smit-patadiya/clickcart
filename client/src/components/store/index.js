@@ -75,7 +75,7 @@ class Store extends Component {
                 <form className='' onSubmit={this.onSubmit} >
                     <div className='form-group'>
                         <label htmlFor='name'>Store Name</label>
-                        <input type='text' className='form-control' name='name' value={storename} onChange={this.onChange} />
+                        <input type='text' className='form-control' name='name' value={this.state.name} onChange={this.onChange} />
                     </div>
                     
                         <div className='form-group'>
