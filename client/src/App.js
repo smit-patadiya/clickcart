@@ -17,6 +17,7 @@ import EditProduct from './components/products/edit';
 
 
 import store from './store';
+
 import FrontEnd from './components/frontend/index';
 
 import SingleProduct from './components/frontend/SingleProduct';
@@ -25,9 +26,6 @@ import RegisterCustomer from './components/frontend/RegisterCustomer';
 import LoginCustomer from './components/frontend/LoginCustomer';
 
 
-if( localStorage.ecartid ){
-
-}
 
 
 if ( localStorage.jwtToken ) {
@@ -72,14 +70,16 @@ class App extends Component {
       <Provider store={store}>
         <Router>
 					<div className="App">
-
+						<Route exact path="/" component={Home} />
+					<Route exact path="/render/" component={FrontEnd} />
 						<Route exact path="/render/:storeid" component={FrontEnd} />
 						<Route exact path="/render/:storeid/register" component={RegisterCustomer} />
 						<Route exact path="/render/:storeid/login" component={LoginCustomer} />
 						<Route exact path="/render/:storeid/product/:productId" component={SingleProduct} />
 						<Route exact path="/render/:storeid/cart/" component={Cart} />
+						<Route exact path="/render/:storeid/cart/" component={Cart} />
 
-						<Route exact path="/" component={Home} />
+						
 						<Route exact path="/register" component={Register} />
 						<Switch><PrivateRoute exact path="/dashboard" component={Dashboard} /></Switch>
 						<Switch><PrivateRoute exact path="/dashboard/:param" component={Dashboard} /></Switch>
