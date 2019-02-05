@@ -2,9 +2,9 @@
   "name": "react-node-boilerplate",
   "version": "1.0.0",
   "description": "A React Js and Node Js boilerplate for building a new project. It uses create-react-app",
-  "main": "server.js",
+  "main": "server/server.js",
   "scripts": {
-    "start": "node server.js",
+    "start": "node server/server.js",
     "server": "nodemon server/server.js",
     "client-install": "npm install --prefix client",
     "client": "npm start --prefix client",
