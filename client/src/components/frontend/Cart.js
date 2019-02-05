@@ -20,7 +20,7 @@ class Cart extends Component {
         this.state = {
             store: {
                 storeId: storeId,
-                storeUrl: `/#/render/${storeId}`,
+                storeUrl: `/render/${storeId}`,
             },
             cart: [],
             loading: true,

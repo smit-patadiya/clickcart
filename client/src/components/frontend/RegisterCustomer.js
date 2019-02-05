@@ -22,7 +22,7 @@ class RegisterCustomer extends Component {
         this.state = {
             store: {
                 storeId: storeId,
-                storeUrl: `/#/render/${storeId}`,
+                storeUrl: `/render/${storeId}`,
             },
             email: '',
             password: '',
@@ -82,8 +82,10 @@ class RegisterCustomer extends Component {
     render() {
         const { isAuthenticated } = this.props.auth;
 
+        let content = '';
         if (isAuthenticated) {
-            return;
+            content = <div>Your are already Logged in</div>;
+            
         }
 
         const { errors } = this.state;
@@ -93,6 +95,7 @@ class RegisterCustomer extends Component {
 
                 <Navbar data={this.state.store} />
                 <div className='container'>
+                    {content}
                     <form className="mt-1 mb-2" onSubmit={this.onSubmit}>
                         <div className="form-group">
                             <h4 className="text-center">Register</h4>

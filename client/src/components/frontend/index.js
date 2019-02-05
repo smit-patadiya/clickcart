@@ -20,7 +20,7 @@ class FrontEnd extends Component {
         this.state = {
             store: {
                 storeId: storeId,
-                storeUrl: `/#/render/${storeId}`,
+                storeUrl: `/render/${storeId}`,
             },
             allCats: [],
             products: [],

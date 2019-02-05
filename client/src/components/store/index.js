@@ -68,7 +68,18 @@ class Store extends Component {
         
         let storeUrl = (this.state.storeId !== '') ? `${window.location.origin}/#/render/${storeId}` : '...Loading...';
 
-        let textArea = ` <iframe id="form-iframe" src="${storeUrl}" style="margin:0; width:100%; height:150px; border:none; overflow:hidden;" scrolling="no" onload="AdjustIframeHeightOnLoad()"></iframe><script type="text/javascript">function AdjustIframeHeightOnLoad() { document.getElementById("form-iframe").style.height = document.getElementById("form-iframe").contentWindow.document.body.scrollHeight + "px"; }function AdjustIframeHeight(i) { document.getElementById("form-iframe").style.height = parseInt(i) + "px"; }</script>`;
+        let textArea = ` <iframe id="snipkart-iframe" src="${storeUrl}" style="margin:0; width:100%; height:150px; border:none; overflow:hidden;" scrolling="no" ></iframe><script type="text/javascript">
+           // Listen for messages sent from the iFrame
+  var eventMethod = window.addEventListener ? "addEventListener" : "attachEvent";
+  var eventer = window[eventMethod];
+  var messageEvent = eventMethod == "attachEvent" ? "onmessage" : "message";
+
+  eventer(messageEvent,function(e) {
+    // If the message is a resize frame request
+    if (e.data.indexOf('resize::') != -1) {
+      var height = e.data.replace('resize::', '');
+      document.getElementById('snipkart-iframe').style.height = height+'px';
+    }} ,false);</script>`;
         return (
             <div className='p-2'>
                 <h3 className=''>Create or Manage Store</h3>

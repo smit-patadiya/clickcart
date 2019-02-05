@@ -25,7 +25,7 @@ class LoginCustomer extends Component {
         this.state = {
             store: {
                 storeId: storeId,
-                storeUrl: `/#/render/${storeId}`,
+                storeUrl: `/render/${storeId}`,
             },
             email: '',
             password: '',

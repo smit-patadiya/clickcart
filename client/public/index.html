@@ -22,5 +22,19 @@
       crossorigin="anonymous"></script>
     <script defer src="https://use.fontawesome.com/releases/v5.6.1/js/all.js" integrity="sha384-R5JkiUweZpJjELPWqttAYmYM1P3SNEJRM6ecTQF05pFFtxmCO+Y1CiUhvuDzgSVZ"
       crossorigin="anonymous"></script>
+      
+      <script type='text/javascript'>
+        // Size the parent iFrame
+        function iframeResize() {
+          var height = jQuery('body').outerHeight(); // IMPORTANT: If body's height is set to 100% with CSS this will not work.
+          parent.postMessage("resize::" + height, "*");
+        }
+
+        $(document).ready(function () {
+          // Resize iframe
+          setInterval(iframeResize, 1000);
+        });
+      </script>
+
   </body>
 </html>
