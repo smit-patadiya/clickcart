@@ -65,6 +65,7 @@ if ( localStorage.jwtToken ) {
 
 class App extends Component {
   render() {
+	console.log('coming');
 
     return (
       <Provider store={store}>
@@ -81,21 +82,17 @@ class App extends Component {
 						<Switch><PrivateRoute exact path="/edit-product/:param" component={EditProduct} /></Switch>
 
 					<Route exact path="/render/" component={FrontEnd} />
-					<Switch>
-						<Route exact path="/render/:storeid" component={FrontEnd} />
-					</Switch>
-					<Switch>
+					
+						<Route exact path="/render/:storeid/" component={FrontEnd} />
+					
 						<Route exact path="/render/:storeid/register" component={RegisterCustomer} />
-					</Switch>
-					<Switch>
+					
 						<Route exact path="/render/:storeid/login" component={LoginCustomer} />
-					</Switch>
-					<Switch>
+					<Route exact path="/render/:storeid/cart/" component={Cart} />
 						<Route exact path="/render/:storeid/product/:productId" component={SingleProduct} />
-					</Switch>
-					<Switch>
-						<Route exact path="/render/:storeid/cart/" component={Cart} />
-					</Switch>
+					
+						
+					
 					
 					</div>
         </Router>
