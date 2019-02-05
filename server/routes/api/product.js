@@ -39,9 +39,37 @@ router.get('/bystore/:storeId', (req, res) => {
 
 });
 
+
+router.get('/bystorewithcat/:storeId', (req, res) => {
+
+    Product.find({ storeId: req.params.storeId })
+        .populate( 'category' )
+        .then(products => {
+            return res.status(200).json(products);
+        })
+        .catch(err => {
+            return res.status(400).json(err);
+        });
+
+});
+
 router.get('/fetch-by-id/:productId', (req, res) => {
 
     Product.findOne({ _id: req.params.productId })
+        .then(products => {
+            return res.status(200).json(products);
+        })
+        .catch(err => {
+            return res.status(400).json(err);
+        });
+
+});
+
+
+router.get('/fetch-by-id-with-cat/:productId', (req, res) => {
+
+    Product.findOne({ _id: req.params.productId })
+        .populate('category')
         .then(products => {
             return res.status(200).json(products);
         })

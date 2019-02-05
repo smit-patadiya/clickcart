@@ -19,6 +19,8 @@ import EditProduct from './components/products/edit';
 import store from './store';
 import FrontEnd from './components/frontend/index';
 
+import SingleProduct from './components/frontend/SingleProduct';
+
 
 if( localStorage.ecartid ){
 
@@ -62,13 +64,14 @@ if ( localStorage.jwtToken ) {
 
 class App extends Component {
   render() {
-		
+
     return (
       <Provider store={store}>
         <Router>
 					<div className="App">
 
 						<Route exact path="/render/:storeid" component={FrontEnd} />
+						<Route exact path="/render/:storeid/product/:productId" component={SingleProduct} />
 						<Route exact path="/" component={Home} />
 						<Route exact path="/register" component={Register} />
 						<Switch><PrivateRoute exact path="/dashboard" component={Dashboard} /></Switch>
