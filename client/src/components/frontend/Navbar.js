@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { logoutUser } from "../../actions/authActions";
+import { clearCurrentProfile } from "../../actions/authActions";
 
 
 
@@ -17,6 +19,10 @@ class Navbar extends Component {
 
     }
 
+    logout = () => {
+        this.props.logoutUser();
+        this.props.clearCurrentProfile();
+    }
 
 
     render() {
@@ -43,7 +49,14 @@ class Navbar extends Component {
                             <li className="nav-item">
                                 <Link className="nav-link" to={this.state.homeUrl + '/cart'}>Cart</Link>
                             </li>
+                            
                         ) }
+                        {this.props.auth.isAuthenticated && (
+                            
+                            <li className="nav-item">
+                                <Link className="nav-link" to="#" onClick={this.logout}>Logout</Link>
+                            </li>
+                        )}
                         
                     </ul>
                     
@@ -57,6 +70,8 @@ class Navbar extends Component {
 
 Navbar.propTypes = {
     auth: PropTypes.object.isRequired,
+    logoutUser: PropTypes.func.isRequired,
+    clearCurrentProfile: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -64,4 +79,4 @@ const mapStateToProps = (state) => ({
 });
 
 
-export default connect(mapStateToProps, {  })(Navbar);
+export default connect(mapStateToProps, { logoutUser, clearCurrentProfile })(Navbar);

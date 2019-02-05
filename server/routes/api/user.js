@@ -76,7 +76,7 @@ router.post( '/login', ( req, res ) => {
 
         user.comparePassword(password, user.password , (err, isMatch) => {
 
-            if ( !isMatch){
+            if ( isMatch){
                 errors.password = 'Wrong password';
                 return res.status(400).json( errors );
             }

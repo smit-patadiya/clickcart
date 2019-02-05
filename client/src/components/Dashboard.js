@@ -10,6 +10,7 @@ import AdminSidebar from './common/AdminSidebar';
 import Store from './store/index';
 import Products from './products/index';
 import Categories from './categories/index';
+import Orders from './orders/index';
 import EditCat from './categories/edit';
 import Navbar from './common/Navbar';
 
@@ -67,6 +68,7 @@ class Dashboard extends Component {
             case 'store' : return <Store />;
             case 'products': return <Products />;
             case 'categories': return <Categories />;
+            case 'orders': return <Orders />;
 
                 
             default: return (<div>Not Found</div>)

@@ -77,11 +77,14 @@ class Store extends Component {
                         <label htmlFor='name'>Store Name</label>
                         <input type='text' className='form-control' name='name' value={storename} onChange={this.onChange} />
                     </div>
-                    <div className='form-group'>
-                        <label htmlFor='link'>Link</label>
-                        <textarea rows={5} className='form-control' readOnly={true} value={ textArea }></textarea>
-                        
-                    </div>
+                    
+                        <div className='form-group'>
+                            <label htmlFor='link'>Link</label>
+                            {(storeId !== '') && (<textarea rows={5} className='form-control' readOnly={true} value={textArea}></textarea>)}
+                            {( storeId === '' ) && (<div>Waiting...</div>) }
+                        </div>
+                    
+                    
                     <div className='form-group'>
                         <button type="submit" className='btn btn-primary' disabled={this.state.submitting} >Submit</button>
                     </div>

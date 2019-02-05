@@ -167,6 +167,24 @@ router.get('/fetch-cart/:storeId/:userId', ( req, res ) => {
 
 } );
 
+router.get('/fetch-orders/:storeId', ( req, res ) => {
+
+    let storeId = req.params.storeId;
+
+    Cart.find({ storeId: storeId })
+        .populate('productId')
+        .populate('userId')
+        .then(data => {
+            return res.status(200).json(data);
+        })
+        .catch(err => {
+            return res.status(400).json({
+                error: err,
+            })
+        });
+} );
+
+
 
 
 
