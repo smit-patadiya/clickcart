@@ -72,7 +72,7 @@ class LoginCustomer extends Component {
 
         let constnet = <div></div>;
         if (isAuthenticated) {
-            window.location.href = '/render/' + this.state.store.storeId;
+            window.location.href = '/#/render/' + this.state.store.storeId;
             constnet = <div>You logged in</div>
             //return;
         }

@@ -64,8 +64,6 @@ export const loginCustomer = (userData) => dispatch => {
     axios.post('/api/customer/login', userData)
         .then((result) => {
 
-            console.log(result);
-
 			/**
 			 * Once you get the response , save the data received from result.data to localStorage
 			 * We are using object destructuring here, below code is equivalent to const token = result.data.token
