@@ -22,7 +22,7 @@ class SingleProduct extends Component {
         this.state = {
             store: {
                 storeId: storeId,
-                storeUrl: `/render/${storeId}`,
+                storeUrl: `/#/render/${storeId}`,
             },
             productId: productId,
             name: '',

@@ -22,7 +22,7 @@ class RegisterCustomer extends Component {
         this.state = {
             store: {
                 storeId: storeId,
-                storeUrl: `/render/${storeId}`,
+                storeUrl: `/#/render/${storeId}`,
             },
             email: '',
             password: '',
@@ -70,7 +70,7 @@ class RegisterCustomer extends Component {
                     this.setState({
                         errors: res.data
                     });
-                    
+
                 }
             })
             .catch((err) => {

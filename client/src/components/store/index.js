@@ -66,7 +66,7 @@ class Store extends Component {
         let storename = (this.props.store.name) ? this.props.store.name : this.state.name;;
     
         
-        let storeUrl = (this.state.storeId !== '') ? `${window.location.origin}/render/${storeId}` : '...Loading...';
+        let storeUrl = (this.state.storeId !== '') ? `${window.location.origin}/#/render/${storeId}` : '...Loading...';
 
         let textArea = ` <iframe id="form-iframe" src="${storeUrl}" style="margin:0; width:100%; height:150px; border:none; overflow:hidden;" scrolling="no" onload="AdjustIframeHeightOnLoad()"></iframe><script type="text/javascript">function AdjustIframeHeightOnLoad() { document.getElementById("form-iframe").style.height = document.getElementById("form-iframe").contentWindow.document.body.scrollHeight + "px"; }function AdjustIframeHeight(i) { document.getElementById("form-iframe").style.height = parseInt(i) + "px"; }</script>`;
         return (
@@ -83,7 +83,7 @@ class Store extends Component {
                             {(storeId !== '') && (<textarea rows={5} className='form-control' readOnly={true} value={textArea}></textarea>)}
                             {( storeId === '' ) && (<div>Waiting...</div>) }
                         </div>
-                        
+
                     <Link to={`/render/${storeId}`}>Visit</Link>
                     
                     
