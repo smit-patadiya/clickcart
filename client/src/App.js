@@ -20,6 +20,8 @@ import store from './store';
 import FrontEnd from './components/frontend/index';
 
 import SingleProduct from './components/frontend/SingleProduct';
+import RegisterCustomer from './components/frontend/RegisterCustomer';
+import LoginCustomer from './components/frontend/LoginCustomer';
 
 
 if( localStorage.ecartid ){
@@ -71,7 +73,10 @@ class App extends Component {
 					<div className="App">
 
 						<Route exact path="/render/:storeid" component={FrontEnd} />
+						<Route exact path="/render/:storeid/register" component={RegisterCustomer} />
+						<Route exact path="/render/:storeid/login" component={LoginCustomer} />
 						<Route exact path="/render/:storeid/product/:productId" component={SingleProduct} />
+
 						<Route exact path="/" component={Home} />
 						<Route exact path="/register" component={Register} />
 						<Switch><PrivateRoute exact path="/dashboard" component={Dashboard} /></Switch>

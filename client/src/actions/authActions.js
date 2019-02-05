@@ -58,6 +58,47 @@ export const loginUser = (userData) => dispatch => {
         }));
 };
 
+// Login - Get User Token. This is loginUser() Action
+export const loginCustomer = (userData) => dispatch => {
+
+    axios.post('/api/customer/login', userData)
+        .then((result) => {
+
+            console.log(result);
+
+			/**
+			 * Once you get the response , save the data received from result.data to localStorage
+			 * We are using object destructuring here, below code is equivalent to const token = result.data.token
+			 */
+            const token = result.data;
+
+            // Store token in localStorage
+            localStorage.setItem('jwtToken', token);
+
+            // Set token to Auth Header using a custom function setAuthToken
+            setAuthToken(token);
+
+            // Use jwt-decode to decode the auth token and get the user data from it( install jwt-decode in clients dir )
+            const decoded = jwt_decode(token);
+            
+            dispatch(setCurrentUser(decoded));
+            
+            
+        })
+        .catch((err) => {
+
+            if( err.response ){
+                dispatch({
+                    type: GET_ERRORS,
+                    payload: err.response.data
+                });
+            }
+            
+            
+            
+    });
+};
+
 // Set logged in user
 export const setCurrentUser = (decoded) => {
     return {

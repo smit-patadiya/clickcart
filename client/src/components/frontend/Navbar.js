@@ -33,6 +33,12 @@ class Navbar extends Component {
                         <li className="nav-item active">
                             <Link className="nav-link" to={this.state.homeUrl}>Home</Link>
                         </li>
+                        <li className="nav-item">
+                            <Link className="nav-link" to={this.state.homeUrl+'/register'}>Register</Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link className="nav-link" to={this.state.homeUrl + '/login'}>Login</Link>
+                        </li>
                         
                     </ul>
                     
@@ -45,11 +51,11 @@ class Navbar extends Component {
 }
 
 Navbar.propTypes = {
-    
+    auth: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-   
+    auth: state.auth,
 });
 
 

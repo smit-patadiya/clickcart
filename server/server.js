@@ -10,6 +10,7 @@ const user = rfr('server/routes/api/user');
 const store = rfr('server/routes/api/store');
 const product = rfr('server/routes/api/product');
 const category = rfr('server/routes/api/category');
+const customer = rfr('server/routes/api/customer');
 
 const router = express.Router();
 
@@ -27,6 +28,7 @@ app.use('/api/user', user);
 app.use('/api/store', store);
 app.use('/api/product', product);
 app.use('/api/category', category);
+app.use('/api/customer', customer);
 
 // Passport middleware
 app.use(passport.initialize());
