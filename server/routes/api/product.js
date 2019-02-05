@@ -85,6 +85,7 @@ router.post('/create', (req, res) => {
     let body = req.body,
         errors = {};
 
+    
     let newProduct = new Product({
         storeId: body.storeId,
         name: body.name,
