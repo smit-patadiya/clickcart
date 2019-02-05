@@ -9,6 +9,7 @@ const passport = require('passport');
 // Load model.
 const Store = rfr('server/models/Store');
 const Product = rfr('server/models/Product');
+const Cart = rfr('server/models/Cart');
 const Category = rfr('server/models/Category');
 
 
@@ -124,11 +125,27 @@ router.post('/edit', (req, res) => {
 
 });
 
-router.post('/add-to-cart', passport.authenticate('jwt', { session: false }), ( req, res ) => {
+router.post('/add-to-cart', ( req, res ) => {
 
-    console.log(req);
-    
-    return res.json({hello: 200});
+    var addToCart = new Cart({
+        storeId: req.body.storeId,
+        productId: req.body.productId,
+        userId: req.body.userId,
+
+    });
+
+    addToCart.save()
+        .then( data => {
+            return res.status(200).json({
+                success: true,
+            })
+        } )
+        .catch( err => {
+            return res.status(400).json({
+                error: err,
+            })
+        } );
+
 } )
 
 

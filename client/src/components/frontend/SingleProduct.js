@@ -31,6 +31,8 @@ class SingleProduct extends Component {
             detail: '',
             category: {},
             loading: true,
+            message: '',
+            msgSuccess: '',
         }
 
 
@@ -77,7 +79,40 @@ class SingleProduct extends Component {
 
     }
 
+    onAddToCart = () => {
+
+       
+        if (this.props.auth.isAuthenticated ){
+
+            let formData = {
+                userId: this.props.auth.user._id,
+                storeId: this.props.auth.user.storeId,
+                productId: this.state.productId
+            }
+
+            axios.post(`/api/product/add-to-cart`, formData)
+                .then(result => {
+                    this.setState({
+                        msgSuccess: 'Product Added to cart'
+                    })
+                })
+                .catch(err => {
+                    console.log(err);
+                });
+
+        }else{
+            this.setState({
+                message: 'Please Login to add to cart'
+            })
+        }
+        
+
+       
+
+    }
+
     render() {
+        console.log(this.props);
 
         return (
             <div className=''>
@@ -116,7 +151,14 @@ class SingleProduct extends Component {
                                         Price: $ {this.state.price}
                                     </p>
 
-                                    <button type='button' className='btn btn-warning' onClick={this.addToCart}>Add To Cart</button>
+                                    <button type='button' className='btn btn-warning' onClick={this.onAddToCart}>Add To Cart</button>
+                                    { this.state.message && (<div className='text-danger'>
+                                        {this.state.message}
+                                    </div>) }
+                                    {this.state.msgSuccess && (<div className='text-success'>
+                                        {this.state.msgSuccess}
+                                    </div>)}
+
                                 </div>
                             </div>
                             <div className='mb-2 mt-4'>
@@ -139,11 +181,13 @@ class SingleProduct extends Component {
     }
 }
 SingleProduct.propTypes = {
-
+    auth: PropTypes.object.isRequired,
+    errors: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  
+    auth: state.auth,
+    errors: state.errors
 });
 
 
