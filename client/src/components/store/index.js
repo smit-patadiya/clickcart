@@ -83,6 +83,8 @@ class Store extends Component {
                             {(storeId !== '') && (<textarea rows={5} className='form-control' readOnly={true} value={textArea}></textarea>)}
                             {( storeId === '' ) && (<div>Waiting...</div>) }
                         </div>
+                        
+                    <Link to={`/render/${storeId}`}>Visit</Link>
                     
                     
                     <div className='form-group'>
