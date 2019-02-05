@@ -124,6 +124,13 @@ router.post('/edit', (req, res) => {
 
 });
 
+router.post('/add-to-cart', passport.authenticate('jwt', { session: false }), ( req, res ) => {
+
+    console.log(req);
+    
+    return res.json({hello: 200});
+} )
+
 
 
 
